@@ -1,0 +1,82 @@
+version: "3.8"
+services:
+  database:
+    image: "mysql:8.0.32"
+    container_name: ${MYSQL_CONTAINER_NAME}
+    hostname: ${DB_CONTAINER_HOSTNAME}
+    env_file:
+      - ../.env
+    environment:
+      MYSQL_ROOT_USER: ${MYSQL_ROOT_USER}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "${MYSQL_HOST_PORT}:${MYSQL_GUEST_PORT}"
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "-u$MYSQL_USER", "-p$MYSQL_PASSWORD",  "ping", "-h", "localhost" ]
+      interval: 3s
+      timeout: 45s
+      retries: 10
+    command: mysqld
+  python:
+    depends_on:
+      database:
+        condition: service_healthy
+    env_file:
+      - ../.env
+    image: "amirhazan/devops_experts_proj:${PY_TAG}${BUILD_NUMBER}"
+    container_name: ${PYTHON_CONTAINER_NAME}
+    hostname: ${PYTHON_CONTAINER_HOSTNAME}
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    build:
+      context: ..
+      args:
+        RUN_SERVER: ${RUN_SERVER} # .env file options that can be used for choosing which server to run: backendOnly / webOnly / bothServers
+        CREATE_SCHEMA_FOR_K8S: ${CREATE_SCHEMA_FOR_K8S} # .env Boolean, if true - create default schema for k8s usage after pods are running.
+        DB_CONTAINER_HOSTNAME: ${DB_CONTAINER_HOSTNAME} # for start.sh bash script
+        MYSQL_GUEST_PORT: ${MYSQL_GUEST_PORT} # for start.sh bash script
+      dockerfile: /docker_app/python.Dockerfile
+    environment:
+      RUN_SERVER: ${RUN_SERVER}
+      CREATE_SCHEMA_FOR_K8S: ${CREATE_SCHEMA_FOR_K8S}
+      DB_CONTAINER_HOSTNAME: ${DB_CONTAINER_HOSTNAME}
+      MYSQL_GUEST_PORT: ${MYSQL_GUEST_PORT}
+    healthcheck:
+      test: [ "CMD-SHELL", "ping -c 1 python" ]
+      interval: 2s
+      timeout: 10s
+      retries: 5
+    links:
+      - database
+  docker_backend_testing: # it's possible to comment that and instead to use "multi_platform_backend_testing.py -t docker" in jenkins just after docker-compose up...
+    depends_on:
+      python:
+        condition: service_healthy
+    env_file:
+      - ../.env
+    image: "amirhazan/devops_experts_proj:${PY_DOCKER_BE_TESTING_TAG}${BUILD_NUMBER}"
+    container_name: ${DOCKER_BACKEND_TESTING_CONTAINER_NAME}
+    hostname: ${DOCKER_BE_CONTAINER_HOSTNAME}
+    ports:
+      - "5000"
+    build:
+      context: ..
+      args:
+        DB_CONTAINER_HOSTNAME: ${DB_CONTAINER_HOSTNAME} # for backend_testing_start.sh bash script
+        MYSQL_GUEST_PORT: ${MYSQL_GUEST_PORT} # for backend_testing_start.sh bash script
+      dockerfile: /docker_app/docker_backend_testing.Dockerfile
+    environment:
+      DB_CONTAINER_HOSTNAME: ${DB_CONTAINER_HOSTNAME}
+      MYSQL_GUEST_PORT: ${MYSQL_GUEST_PORT}
+    healthcheck:
+      test: [ "CMD-SHELL", "ping -c 1 docker_backend_testing" ]
+      interval: 2s
+      timeout: 10s
+      retries: 5
+    links:
+      - database
+      - python

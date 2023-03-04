@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-deploy
+  labels:
+    app: flask-deploy
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.pythonFlaskApp.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.pythonFlaskApp.name }}
+    spec:
+      containers:
+      - name: {{ .Values.pythonFlaskApp.name }}
+        image: {{ .Values.pythonFlaskApp.imageRepo }}:{{ .Values.pythonFlaskApp.tagName }}{{ .Values.pythonFlaskApp.tagVersion }}
+        env:
+        - name: RUN_SERVER
+          value: backendOnly
+        - name: CREATE_SCHEMA_FOR_K8S
+          value: "true"
+        - name: DB_CONTAINER_HOSTNAME
+          value: mysql-0.mysql
+        - name: MYSQL_GUEST_PORT
+          value: "3306"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: {{ .Values.pythonFlaskApp.restPort }}

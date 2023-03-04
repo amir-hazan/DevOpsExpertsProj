@@ -1,0 +1,8 @@
+__pycache__/
+.idea/
+.env
+src/txt_files/*.txt
+k8s-flask-port.txt
+k8s-mysql-port.txt
+src/html_files/users_table.html
+src/html_files/config_table.html

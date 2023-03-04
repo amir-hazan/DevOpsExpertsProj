@@ -1,0 +1,52 @@
+{
+  "DevOpsExpertsProj": {
+    "generalDBConfiguration": {
+      "dbHost": null,
+      "dbPort": 3306,
+      "dbUserName": null,
+      "dbUserPassword": null,
+      "dbSchemaName": "DevOpsExpertsDB"
+    },
+    "usersTableDBConfiguration": {
+      "tableName": "users",
+      "userIdField": "user_id",
+      "userNameField": "user_name",
+      "creationDateField": "creation_date"
+    },
+    "configTableDBConfiguration": {
+      "configTableFieldsName": {
+        "tableName": "config",
+        "idField": "id",
+        "protocolField": "protocol",
+        "flaskHostAddressField": "flask_host_address",
+        "serverTestingHostAddressField": "server_testing_host_address",
+        "restAppPortField": "rest_app_port",
+        "webAppPortField": "web_app_port",
+        "usersEndpointField": "users_endpoint",
+        "getUsersDataEndpointField": "get_users_data_endpoint",
+        "createUsersEndpointField": "create_users_endpoint",
+        "getAllUsersEndpointField": "get_all_users_endpoint",
+        "stopRestServerEndpointField": "stop_rest_server_endpoint",
+        "stopWebServerEndpointField": "stop_web_server_endpoint",
+        "testingBrowserField": "testing_browser",
+        "testingUserNameField": "testing_user_name"
+      },
+      "configTableFieldsValues": {
+        "id": 1,
+        "protocol": "http",
+        "flaskHostAddress": null,
+        "serverTestingHostAddress": "127.0.0.1",
+        "restAppPort": 5000,
+        "webAppPort": 5001,
+        "usersEndpoint": "users",
+        "getUsersDataEndpoint": "users/get-user-data",
+        "createUsersEndpoint": "users/add-new-user",
+        "getAllUsersEndpoint": "users/json/get-all-users",
+        "stopRestServerEndpoint": "admin/stop-rest-server",
+        "stopWebServerEndpoint": "admin/stop-web-server",
+        "testingBrowser": "Chrome",
+        "testingUserName": "amir"
+      }
+    }
+  }
+}

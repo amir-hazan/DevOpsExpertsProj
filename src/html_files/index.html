@@ -1,0 +1,390 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amir Hazan - DevOps Experts Final Project</title>
+    <link rel="stylesheet" href="https://stackedit.io/style.css"/>
+    <style>
+    :root {
+      --bg-color: #2A2A2A;
+      --text-color: #F8F8F8;
+      --code-color: #1C1C1C;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color) !important;
+    }
+
+    pre {
+        background-color: var(--code-color);
+        border-radius: 5px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--text-color);
+    }
+
+    p {
+      color: var(--text-color);
+    }
+
+    a {
+      color: #8aa6e1; /* set custom link color */
+    }
+
+    #devops-experts-course-python-project{
+        text-align: center !important;
+    }
+
+    .stackedit__html{
+        max-width: 1100px !important;
+    }
+    </style>
+</head>
+<body class="stackedit">
+<div class="stackedit__html" id="set_width">
+    <h1 id="devops-experts-course-python-project">DevOps Experts Course - Final Project</h1>
+    <pre><code>Python (flask), MySQL, Docker, Jenkins and Kubernetes (HELM Chart with Flask Deployment MySql StatefulSet application) Project</code></pre>
+    <h2 id="main-python-libraries-">Main Python Libraries</h2>
+    <ul>
+        <li>pymysql</li>
+        <li>PyPika</li>
+        <li>requests</li>
+        <li>flask</li>
+        <li>selenium</li>
+        <li>webdriver</li>
+        <li>prettytable</li>
+        <li>names</li>
+        <li>psutil</li>
+    </ul>
+    <h2 id="installations-">Requirements Installations</h2>
+    <pre><code class="lang-bash"><span class="hljs-selector-tag">pip</span> <span
+            class="hljs-selector-tag">install</span> <span class="hljs-selector-tag">--ignore-installed</span> <span
+            class="hljs-selector-tag">--trusted-host</span> <span class="hljs-selector-tag">pypi</span><span
+            class="hljs-selector-class">.python</span><span class="hljs-selector-class">.org</span> <span
+            class="hljs-selector-tag">-r</span> <span class="hljs-selector-tag">requirements</span><span
+            class="hljs-selector-class">.txt</span>
+</code></pre>
+    <pre><code>MySql <span class="hljs-keyword">DB</span> configuration: Config.json (Folder: Src.Config)
+
+<span class="hljs-keyword">For</span> Creating <span class="hljs-keyword">DB</span> tables please <span
+                class="hljs-keyword">run</span> create_db_tables.py (Folder: src.<span class="hljs-keyword">db</span>)
+</code></pre>
+    <h2 id="docker">Docker</h2>
+    <ul>
+        <li>required docker &amp; docker compose installed</li>
+        <li><p>commands:</p>
+            <ul>
+                <li>docker-compose --env-file .env --file docker_app\docker-compose.yml up --build</li>
+                <li>docker-compose --env-file .env --file docker_app\docker-compose.yml down --rmi all --volumes</li>
+            </ul>
+        </li>
+    </ul>
+    <h2 id="kubernetes">Kubernetes</h2>
+    <ul>
+        <li>required kubectl, minikube, helm installation.</li>
+        <li><p>commands:</p>
+            <ul>
+                <li>minikube start</li>
+                <li>helm create namespace <span>&lt;namespace_name&gt;</span></li>
+                <li>helm install devops-experts-proj-chart --namespace
+                    &lt;namespace_name&gt;
+                </li>
+                <li>get ports (flask, mysql):
+                    <ul>
+                        <li>minikube service flask-app-svc --namespace
+                            &lt;namespace_name&gt;
+                        </li>
+                        <li>minikube service mysql --namespace
+                            &lt;namespace_name&gt;
+                        </li>
+                    </ul>
+                </li>
+                <li>uninstall helm:
+                    <ul>
+                        <li>helm delete devops-experts-proj-chart --namespace
+                            &lt;namespace_name&gt;
+                        </li>
+                    </ul>
+                </li>
+                <li>delete namespace:
+                    <ul>
+                        <li>kubectl delete namespace
+                            &lt;namespace_name&gt;
+                        </li>
+                    </ul>
+                </li>
+                <li>stop and delete minikube server:
+                    <ul>
+                        <li>minikube stop</li>
+                        <li>minikube delete --purge</li>
+                    </ul>
+                </li>
+                <li>delete docker image id:
+                    <ul>
+                        <li>docker rmi &lt;image_id&gt;</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <h2 id="api-reference-">API Reference:</h2>
+    <h3 id="rest-application-">Rest Application:</h3>
+    <pre><code>require running rest_app.py (currently it points <span class="hljs-string">to:</span> <span
+            class="hljs-string">http:</span><span class="hljs-comment">//127.0.0.1:5000/{endpoint})</span>
+</code></pre>
+    <h3 id="create-user">Create user</h3>
+    <pre><code class="lang-http">  POST <span class="hljs-regexp">/users/</span><span
+            class="hljs-variable">${user_id}</span>
+</code></pre>
+    <table>
+        <thead>
+        <tr>
+            <th style="text-align:left">Parameter</th>
+            <th style="text-align:left">Type</th>
+            <th style="text-align:left">Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td style="text-align:left"><code>user_id</code></td>
+            <td style="text-align:left"><code>int</code></td>
+            <td style="text-align:left"><strong>Required</strong>. user_id</td>
+        </tr>
+        </tbody>
+    </table>
+    <h4 id="request-body-json-1">request body (json):</h4>
+    <pre><code class="lang-json">  {
+      <span class="hljs-attr">"user_name"</span>: <span class="hljs-string">"desired_username"</span>
+  }
+</code></pre>
+    <h3 id="update-user-name">Update user name</h3>
+    <pre><code class="lang-http">  PUT <span class="hljs-regexp">/users/</span><span
+            class="hljs-variable">${user_id}</span>
+</code></pre>
+    <table>
+        <thead>
+        <tr>
+            <th style="text-align:left">Parameter</th>
+            <th style="text-align:left">Type</th>
+            <th style="text-align:left">Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td style="text-align:left"><code>user_id</code></td>
+            <td style="text-align:left"><code>int</code></td>
+            <td style="text-align:left"><strong>Required</strong>. user_id</td>
+        </tr>
+        </tbody>
+    </table>
+    <h4 id="request-body-json-2">request body (json):</h4>
+    <pre><code class="lang-json">  {
+      <span class="hljs-attr">"user_name"</span>: <span class="hljs-string">"desired_username"</span>
+  }
+</code></pre>
+    <h3 id="get-user">Get user</h3>
+    <pre><code class="lang-http">  GET <span class="hljs-regexp">/users/</span><span
+            class="hljs-variable">${user_id}</span>
+</code></pre>
+    <table>
+        <thead>
+        <tr>
+            <th style="text-align:left">Parameter</th>
+            <th style="text-align:left">Type</th>
+            <th style="text-align:left">Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td style="text-align:left"><code>user_id</code></td>
+            <td style="text-align:left"><code>int</code></td>
+            <td style="text-align:left"><strong>Required</strong>. user_id of int to fetch</td>
+        </tr>
+        </tbody>
+    </table>
+    <h4 id="body-response-1">Body response:</h4>
+    <pre><code class="lang-json">  {
+    <span class="hljs-attr">"status"</span>: <span class="hljs-string">"OK"</span>,
+    <span class="hljs-attr">"user_id"</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">"user_name"</span>: <span class="hljs-string">"desired_username"</span>
+  }
+</code></pre>
+    <h3 id="delete-user">Delete user</h3>
+    <pre><code class="lang-http">  DELETE <span class="hljs-regexp">/users/</span><span
+            class="hljs-variable">${user_id}</span>
+</code></pre>
+    <table>
+        <thead>
+        <tr>
+            <th style="text-align:left">Parameter</th>
+            <th style="text-align:left">Type</th>
+            <th style="text-align:left">Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td style="text-align:left"><code>user_id</code></td>
+            <td style="text-align:left"><code>int</code></td>
+            <td style="text-align:left"><strong>Required</strong>. user_id of int to fetch</td>
+        </tr>
+        </tbody>
+    </table>
+    <h4 id="body-response-2">Body response:</h4>
+    <pre><code class="lang-json">  {
+    <span class="hljs-attr">"isDeleted"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"status"</span>: <span class="hljs-string">"OK"</span>,
+    <span class="hljs-attr">"user_id"</span>: <span class="hljs-number">1</span>
+  }
+</code></pre>
+    <h3 id="create-user-with-auto-id">Create User with auto id</h3>
+    <pre><code class="lang-http">  POST /users/<span class="hljs-keyword">add</span>-<span
+            class="hljs-keyword">new</span>-user
+</code></pre>
+    <h4 id="request-body-json-">request body (json):</h4>
+    <pre><code class="lang-json">  {
+      <span class="hljs-attr">"user_name"</span>: <span class="hljs-string">"desired_username"</span>
+  }
+</code></pre>
+    <h4 id="body-response-3">Body response:</h4>
+    <pre><code class="lang-json">  {
+        <span class="hljs-attr">"status"</span>: <span class="hljs-string">"OK"</span>,
+        <span class="hljs-attr">"user_id"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"user_name"</span>: <span class="hljs-string">"desired_username"</span>
+  }
+</code></pre>
+    <h3 id="get-all-users">Get All users</h3>
+    <pre><code class="lang-http">  <span class="hljs-meta">GET</span> users/json/<span class="hljs-meta">get</span>-all-users
+</code></pre>
+    <h4 id="body-response-4">Body response:</h4>
+    <pre><code class="lang-json">  [
+    {
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"user_name"</span>: <span class="hljs-string">"desired_username"</span>,
+        <span class="hljs-attr">"date_created"</span>: <span class="hljs-string">"2023-01-01 01:48:44"</span>
+    },
+    {
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">2</span>,
+        <span class="hljs-attr">"user_name"</span>: <span class="hljs-string">"desired_username"</span>,
+        <span class="hljs-attr">"date_created"</span>: <span class="hljs-string">"2023-01-01 01:49:08"</span>
+    }
+  ]
+</code></pre>
+    <h3 id="get-config-table">Get Config Table</h3>
+    <pre><code class="lang-http">  GET /admin/json/<span class="hljs-built_in">get</span>-<span class="hljs-built_in">config</span>-table
+</code></pre>
+    <h4 id="body-response-">Body response:</h4>
+    <pre><code class="lang-json">  [
+    {
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"protocol"</span>: <span class="hljs-string">"http"</span>,
+        <span class="hljs-attr">"flaskHostAddress"</span>: <span class="hljs-string">"0.0.0.0"</span>,
+        <span class="hljs-attr">"serverTestingHostAddress"</span>: <span class="hljs-string">"127.0.0.1"</span>,
+        <span class="hljs-attr">"restAppPort"</span>: <span class="hljs-number">5000</span>,
+        <span class="hljs-attr">"webAppPort"</span>: <span class="hljs-number">5001</span>,
+        <span class="hljs-attr">"usersEndpoint"</span>: <span class="hljs-string">"users"</span>,
+        <span class="hljs-attr">"getUsersDataEndpoint"</span>: <span class="hljs-string">"users/get-user-data"</span>,
+        <span class="hljs-attr">"createUsersEndpoint"</span>: <span class="hljs-string">"users/add-new-user"</span>,
+        <span class="hljs-attr">"getAllUsersEndpoint"</span>: <span
+                class="hljs-string">"users/json/get-all-users"</span>,
+        <span class="hljs-attr">"stopRestServerEndpoint"</span>: <span
+                class="hljs-string">"admin/stop-rest-server"</span>,
+        <span class="hljs-attr">"stopWebServerEndpoint"</span>: <span class="hljs-string">"admin/stop-web-server"</span>,
+        <span class="hljs-attr">"testingBrowser"</span>: <span class="hljs-string">"Chrome"</span>,
+        <span class="hljs-attr">"testingUserName"</span>: <span class="hljs-string">"amir"</span>
+    }
+  ]
+</code></pre>
+    <pre><code class="lang-http">  <span class="hljs-keyword">GET</span> /admin/<span class="hljs-keyword">stop</span>-rest-<span
+            class="hljs-built_in">server</span>
+</code></pre>
+    <pre><code class="lang-http"><span class="hljs-symbol">  Response:</span>
+</code></pre>
+    <pre><code class="lang-json">  {
+      <span class="hljs-attr">"status"</span>: <span class="hljs-string">"web server sucssfully stopped"</span>,
+      <span class="hljs-attr">"is died"</span>: <span class="hljs-string">"True"</span>
+  }
+</code></pre>
+    <h2 id="web-application-">Web Application:</h2>
+    <pre><code><span class="hljs-keyword">return</span> HTML Page <span class="hljs-keyword">with</span> username <span
+            class="hljs-keyword">from</span> DB
+
+URL: http:<span class="hljs-comment">//127.0.0.1:5001/{endpoint}</span>
+</code></pre>
+    <pre><code class="lang-http">  <span class="hljs-meta">GET</span> /users/<span
+            class="hljs-meta">get</span>-user-<span class="hljs-meta">data</span>/&lt;user_id&gt;
+</code></pre>
+    <pre><code><span class="xml">response:
+
+return f"<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">id</span>=<span
+                class="hljs-string">'userNameErr'</span> <span class="hljs-attr">style</span>=<span class="hljs-string">'font-size: 40px'</span>&gt;</span><span
+                class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span> No such ID<span
+                class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span><span class="hljs-tag">&lt;/<span
+                class="hljs-name">p</span>&gt;</span>", 500
+
+or
+
+return f"<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">id</span>=<span
+                class="hljs-string">'userName'</span> <span class="hljs-attr">style</span>=<span class="hljs-string">'font-size: 40px'</span>&gt;</span><span
+                class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>Hello <span class="hljs-tag">&lt;<span
+                class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">'uName'</span>&gt;</span></span><span
+            class="hljs-template-variable">{user_name}</span><span class="xml"><span class="hljs-tag">&lt;/<span
+            class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span
+            class="hljs-name">b</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>", 200</span>
+</code></pre>
+    <pre><code class="lang-http">  <span class="hljs-meta">GET</span> /users/<span class="hljs-meta">get</span>-users-table
+</code></pre>
+    <pre><code>response (users <span class="hljs-keyword">table</span> as <span class="hljs-comment">HTML)</span>
+</code></pre>
+    <pre><code class="lang-http">  <span class="hljs-meta">GET</span> /get_config_table
+</code></pre>
+    <pre><code>response (config <span class="hljs-keyword">table</span> as <span class="hljs-comment">HTML)</span>
+</code></pre>
+    <pre><code class="lang-http">  <span class="hljs-keyword">GET</span> /admin/<span class="hljs-keyword">stop</span>-web-<span
+            class="hljs-built_in">server</span>
+</code></pre>
+    <pre><code class="lang-http"><span class="hljs-symbol">  Response:</span>
+</code></pre>
+    <pre><code class="lang-json">  {
+      <span class="hljs-attr">"status"</span>: <span class="hljs-string">"web server sucssfully stopped"</span>,
+      <span class="hljs-attr">"is died"</span>: <span class="hljs-string">"True"</span>
+  }
+</code></pre>
+    <h2 id="testings-folder-src-testings-">Testings (Folder: src.testings):</h2>
+    <pre><code>In Order to preform testings please run (rest_app<span class="hljs-selector-class">.py</span> &amp; web_app.py)
+
+rest_app<span class="hljs-selector-class">.py</span> <span class="hljs-selector-tag">address</span>: http:<span
+                class="hljs-comment">//127.0.0.1:5000/{endpoint}</span>
+
+web_app<span class="hljs-selector-class">.py</span> <span class="hljs-selector-tag">address</span>: http:<span
+                class="hljs-comment">//127.0.0.1:5001/{endpoint}</span>
+</code></pre>
+    <pre><code class="lang-note"><span class="hljs-type">Windows</span> users:
+
+<span class="hljs-type">Please</span> note, <span class="hljs-type">Chrome</span> web driver is located <span
+                class="hljs-keyword">in</span> \src\web_driver folder
+<span class="hljs-title">and</span> its supporting Chrome Version 109.0.5414.120 (<span
+                class="hljs-type">Official</span> <span class="hljs-type">Build</span>) (64-bit)
+</code></pre>
+    <pre><code class="lang-note">Unix users:
+
+please <span class="hljs-built_in">add</span> chrome driver <span class="hljs-built_in">to</span> /src/web_driver <span
+                class="hljs-built_in">directory</span>.
+</code></pre>
+    <ul>
+        <li>backend_testing.py</li>
+        <li>combined_testings.py</li>
+        <li>frontend_testing.py</li>
+    </ul>
+    <h2 id="authors-">Authors:</h2>
+    <ul>
+        <li><a href="https://www.github.com/amir-hazan">@amir-hazan</a></li>
+    </ul>
+</div>
+</body>
+</html>

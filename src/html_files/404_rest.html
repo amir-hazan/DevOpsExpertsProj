@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type=text/css>
+body {
+    background: black;
+    color: #d3d7de;
+    font-family: "Courier new";
+    font-size: 18px;
+    line-height: 1.5em;
+	cursor: default;
+}
+
+a {
+	color: #fff;
+}
+
+.code-area {
+    position: absolute;
+    width: 320px;
+	min-width: 320px;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.code-area > span {
+    display: block;
+}
+
+@media screen and (max-width: 320px) {
+    .code-area {
+		font-size: 5vw;
+		min-width: auto;
+        width: 95%;
+		margin: auto;
+		padding: 5px;
+		padding-left: 10px;
+		line-height: 6.5vw;
+    }
+}
+
+
+
+    </style>
+</head>
+<body>
+
+<div class="code-area">
+	<span style="color: #53964E;font-style:italic;">
+		""" 404 page not found. """
+	</span>
+	<span>
+		<span style="color:#B4AE28;">@app.errorhandler<span style="color:#bdbdbd;">(</span><span style="color:#5996AC;">404</span><span style="color:#bdbdbd;">)</span>
+			<br><span style="color:#C45B2D;">def</span>
+			<span style="color:#FA9340;">page_not_found</span><span style="color:#bdbdbd;">(e):</span>
+			<span style="color:#C45B2D;">
+				<br>&nbsp;&nbsp;&nbsp;if not</span>
+		</span>
+		<span style="color:#bdbdbd;">found:</span>
+	</span>
+	<span>
+		<span style="padding-left: 15px;color:#C45B2D">
+			<i style="width: 10px;display:inline-block"></i>
+			&nbsp;&nbsp;&nbsp;return
+		</span>
+		<span>
+			<span style="color: #bdbdbd">send_file('404.html'), <span style="color:#5996AC;">404</span></span>
+		</span>
+	</span>
+</div>
+
+</body>
+</html>
